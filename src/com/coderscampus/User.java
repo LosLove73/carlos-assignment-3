@@ -5,6 +5,7 @@ public class User {
 	private String password;
 	private String name;
 	
+	// Constructor to initialize username, password and name fields. 
 	public User (String username, String password, String name) {
 	this.username = username;
 	this.password = password;
