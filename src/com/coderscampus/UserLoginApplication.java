@@ -16,7 +16,7 @@ public class UserLoginApplication {
 				System.out.println("Enter your password: ");
 				String inputPassword = scanner.nextLine();
 				
-				// used to determine if there is a match between the user input against data read from the file. 
+				// used to determine if there is a match between the information inputed by user against the data read from the data.txt file. 
 				for (User user : users) {
 					if (user.getUsername().equalsIgnoreCase(inputUsername) && 
 							user.getPassword().equals(inputPassword)) {
