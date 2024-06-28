@@ -3,10 +3,9 @@ package com.coderscampus;
 import java.util.Scanner;
 
 public class UserLoginApplication {
-
 	public static void main(String[] args) {
 		UserService userService = new UserService();
-		User[] users = userService.takeUsersFromFile("data.txt"); // stores data read from data.txt doc in an Array of User objects called users. 
+		User[] users = userService.takeUsersFromFile("data.txt");
 		try (Scanner scanner = new Scanner(System.in)) {
 			int remainingAttempts = 5;
 			
@@ -16,24 +15,29 @@ public class UserLoginApplication {
 				System.out.println("Enter your password: ");
 				String inputPassword = scanner.nextLine();
 				
-				// used to determine if there is a match between the information inputed by user against the data read from the data.txt file. 
+				boolean isAuthenticated = false; // Variable to track authentication
+				
+				// Check against all users
 				for (User user : users) {
 					if (user.getUsername().equalsIgnoreCase(inputUsername) && 
 							user.getPassword().equals(inputPassword)) {
 						System.out.println("Welcome " + user.getName());
-						return;
+						isAuthenticated = true; // Set to true if authenticated
+						break; // Exit loop after successful login
 					}
 				}
-				// decrements remainingAttemtps by 1 after each iteration. 
-				remainingAttempts --;
-				if (remainingAttempts > 0) {
-					System.out.println("Invalid login, please try again.");
+				
+				if (isAuthenticated) {
+					return; // Exit program if login is successful
 				} else {
-					System.out.println("Too many failed login attempts, you are now locked out.");
+					remainingAttempts--;
+					if (remainingAttempts > 0) {
+						System.out.println("Invalid login, please try again.");
+					} else {
+						System.out.println("Too many failed login attempts, you are now locked out.");
+					}
 				}
 			}
 		}
-
 	}
-
 }
